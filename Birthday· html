@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Nimra!</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #ff4b5c;
+      text-shadow: 2px 2px #fff;
+      animation: fadeInDown 2s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      font-size: 2rem;
+      color: #222;
+    }
+
+    .countdown div {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .wish-message {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 3rem 1rem;
+      color: #ff4b5c;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    button {
+      display: block;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #ff4b5c;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff758f;
+      transform: scale(1.1);
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background: red;
+      border-radius: 50% 50% 50% 50%;
+      opacity: 0.7;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-150vh) rotate(360deg); opacity: 1; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Happy Birthday Nimra! 🎉</h1>
+
+  <div class="countdown">
+    <div><span id="days">0</span><br>Days</div>
+    <div><span id="hours">0</span><br>Hours</div>
+    <div><span id="minutes">0</span><br>Minutes</div>
+    <div><span id="seconds">0</span><br>Seconds</div>
+  </div>
+
+  <div class="wish-message" id="wishMessage">
+    Counting down to your special day...
+  </div>
+
+  <button onclick="showBirthdayMessage()">Click for Surprise 🎁</button>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- Balloons -->
+  <script>
+    // Countdown Timer
+    const countdownDate = new Date("2026-02-17T00:00:00").getTime();
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const wishMessage = document.getElementById("wishMessage");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      if(distance <= 0){
+        daysEl.innerText = 0;
+        hoursEl.innerText = 0;
+        minutesEl.innerText = 0;
+        secondsEl.innerText = 0;
+        wishMessage.innerText = "🎉 Happy Birthday Nimra! 🎉";
+        clearInterval(countdownInterval);
+        startConfetti();
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.innerText = days;
+        hoursEl.innerText = hours;
+        minutesEl.innerText = minutes;
+        secondsEl.innerText = seconds;
+      }
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Birthday surprise button
+    function showBirthdayMessage() {
+      wishMessage.innerHTML = "💖 Wishing you loads of happiness, laughter, and love on your birthday, Nimra! 💖";
+      startConfetti();
+    }
+
+    // Confetti Effect
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    let confettiParticles = [];
+
+    function createConfetti() {
+      confettiParticles = [];
+      for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 150,
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          tilt: Math.floor(Math.random() * 10) - 10
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, W, H);
+      confettiParticles.forEach(p => {
+        ctx.beginPath();
+        ctx.lineWidth = p.r / 2;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+        ctx.stroke();
+      });
+      updateConfetti();
+    }
+
+    function updateConfetti() {
+      confettiParticles.forEach(p => {
+        p.y += Math.cos(p.d) + 3 + p.r / 2;
+        p.x += Math.sin(0.01) * 2;
+        if (p.y > H) {
+          p.y = -10;
+          p.x = Math.random() * W;
+        }
+      });
+    }
+
+    function startConfetti() {
+      createConfetti();
+      setInterval(drawConfetti, 20);
+    }
+
+    // Balloons
+    const colors = ["#FF4B5C","#FFD93D","#6BCB77","#4D96FF","#FF6F91"];
+    for(let i=0;i<30;i++){
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.background = colors[Math.floor(Math.random()*colors.length)];
+      balloon.style.left = Math.random()*window.innerWidth + "px";
+      balloon.style.animationDuration = 5 + Math.random()*10 + "s";
+      balloon.style.width = 30 + Math.random()*30 + "px";
+      balloon.style.height = 40 + Math.random()*40 + "px";
+      document.body.appendChild(balloon);
+    }
+
+    window.addEventListener('resize', () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    });
+
+  </script>
+
+</body>
+</html>
