@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Nimra!</title>
+    <!-- Link to CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 
     <h1>🎉 Happy Birthday Nimra! 🎉</h1>
 
-    <p class="message"> 
+    <p class="message">
         <span class="typing" id="typing"></span>
     </p>
 
@@ -31,6 +32,7 @@
     <!-- Background Music -->
     <audio id="birthdayMusic" src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" loop></audio>
 
-    <script src="script.js"></script>
+    <!-- Link to JS -->
+    <script src="script.js" defer></script>
 </body>
 </html>
