@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Nimra!</title>
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Nimra!</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <header>
     <h1>🎉 Happy Birthday Nimra! 🎉</h1>
+  </header>
 
-    <p class="message">
-        <span class="typing" id="typing"></span>
-    </p>
+  <!-- Countdown -->
+  <section class="countdown">
+    <div><span id="days">0</span><br>Days</div>
+    <div><span id="hours">0</span><br>Hours</div>
+    <div><span id="minutes">0</span><br>Minutes</div>
+    <div><span id="seconds">0</span><br>Seconds</div>
+  </section>
 
-    <button class="btn" onclick="showSurprise()">🎁 Click for Surprise 🎁</button>
-    <button class="btn" onclick="playMusic()">🎵 Play Music 🎵</button>
+  <!-- Birthday message -->
+  <section class="wish-message" id="wishMessage">
+    Counting down to your special day...
+  </section>
 
-    <!-- Balloons -->
-    <div class="balloons" style="left: 10%; background: #ff6f61;"></div>
-    <div class="balloons" style="left: 30%; background: #f7b32b;"></div>
-    <div class="balloons" style="left: 50%; background: #6a2c70;"></div>
-    <div class="balloons" style="left: 70%; background: #008080;"></div>
-    <div class="balloons" style="left: 90%; background: #ff69b4;"></div>
+  <button onclick="showBirthdayMessage()">🎁 Click for Surprise</button>
 
-    <footer>Made with ❤️ by Muhammad Arif</footer>
+  <!-- Confetti canvas -->
+  <canvas id="confetti"></canvas>
 
-    <!-- Background Music -->
-    <audio id="birthdayMusic" src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" loop></audio>
+  <!-- JavaScript -->
+  <script src="script.js" defer></script>
 
-    <!-- Link to JS -->
-    <script src="script.js" defer></script>
 </body>
 </html>
